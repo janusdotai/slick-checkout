@@ -1,0 +1,32 @@
+type Result = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type PaymentWatcher = 
+ service {
+   addCheckout: (CheckoutProfile) -> (Result);
+   clearCheckouts: () -> (bool);
+   deleteCheckout: () -> (bool);
+   getCheckoutCount: () -> (nat) query;
+   getCheckouts: () -> (vec CheckoutProfile) query;
+   getCheckoutsOwner: () -> (vec CheckoutProfile) query;
+   owner: () -> (principal) query;
+   send_notification_test: () -> (text);
+   whoami: () -> (principal) query;
+ };
+type NotificationChannel = 
+ record {
+   api_key: text;
+   enabled: bool;
+   "service": text;
+   url: text;
+ };
+type CheckoutProfile = 
+ record {
+   notification_channels: vec NotificationChannel;
+   owner: principal;
+   updated_at: int;
+   wallet: text;
+ };
+service : (opt vec principal) -> PaymentWatcher
