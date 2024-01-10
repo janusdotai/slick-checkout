@@ -16,3 +16,8 @@ dist/
 .env
 
 src/declarations
+
+
+.mops
+.mops/
+
